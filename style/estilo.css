@@ -1,0 +1,260 @@
+
+/* Importar fuentes */
+
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer+SC&family=MedievalSharp&display=swap');
+.im-fell great primer sc-regular {
+    font-family: "IM Fell Great Primer SC", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+* {
+    margin:0; 
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(120deg, #ede0bf, #c7a47c, #ede0bf);
+
+}
+
+/* Título de la web: Tasador automático..."*/
+
+h1 {
+    margin-bottom: 10px;
+    font-size: 45px;
+    width: 100%;
+    color: var(--color3);;
+    text-align: center;
+    text-decoration: underline;
+    font-family: "IM Fell Great Primer SC", "Arial";
+}
+
+h2 {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 30px;
+    color: var(--color3);;
+    text-align: center;
+    text-decoration: underline;
+    font-family: "IM Fell Great Primer SC", "Arial";
+}
+
+h4 {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: var(--color3);;
+    text-align: left;
+    font-family: "IM Fell Great Primer SC", "Arial";
+}
+
+#cambiarmodo_calculorapido {
+    width: 350px;
+}
+
+.contenedor-boton {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:20px;
+
+}
+
+
+/* AJUSTES DE DISPOSICIÓN */
+
+.contenedor-padre {
+    display: flex;
+}
+  
+.contenedor-izquierdo, .contenedor-derecho {
+    flex: 1; 
+}
+
+.contenedor-derecho {
+
+    border-left: 5px dotted var(--color3);
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.muestraPaquete    {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: center;
+}
+  
+.paquete {
+    width: calc(33.33% - 20px); 
+    margin: 10px; 
+}
+
+.muestraProducto {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.producto {
+    width: calc(33.33% - 20px); 
+    margin: 10px; 
+}
+
+/* PAQUETE Y PRODUCTO  */
+
+.paquete, .producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    width: 190px; /* Tamaño fijo del paquete */
+    transition: transform 0.3s ease;
+    border-radius: 0.25em;
+}
+
+.paquete:hover, .producto:hover {
+    transform: translateY(-5px);
+}
+
+.paquete:nth-child(even) {
+    background-color: var(--color2);/* Color marrón */
+}
+
+.paquete:nth-child(odd) {
+    background-color: var(--color1); /* Otro color más claro */
+}
+
+.producto:nth-child(even) {
+    background-color: var(--color2);/* Color marrón */
+}
+
+.producto:nth-child(odd) {
+    background-color: var(--color1); /* Otro color más claro */
+}
+
+
+.panel_suma_resta {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;
+}
+
+.botonpanel {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 100px;
+    background-color: var(--color4);; 
+    color: var(--color3);
+    
+}
+
+.nombre-paquete, .nombre_objeto {
+    font-family: "IM Fell Great Primer SC", "Arial";
+    color: var(--color4);;
+    font-size: 23px;
+    font-weight: 1000;  
+    text-decoration: underline;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.nombre_objeto {
+    height: 50px;
+    font-size: 19px;
+}
+
+.nombre-paquete {
+    height: 55px;
+}
+
+.paquete div, .producto div {
+    color: var(--color4);;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.uds {
+    font-size: 24px;
+    width: 25px;
+    text-align: center;
+    font-weight: 1000;
+}       
+
+/* ESTILO DE LAS TABLAS */
+
+table {
+  background:  var(--color2);
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+}
+th {
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--color4);;
+  color: var(--color4);;
+  font-size: 0.85em;
+  font-weight: 1000;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+td {
+  color: var(--color4);;
+  font-weight: 400;
+  padding: 0.65em 1em;
+}
+.disabled td {
+  color: var(--color2);
+}
+tbody tr {
+  transition: background 0.25s ease;
+}
+tbody tr:hover {
+  background: var(--color2);
+}
+
+thead {
+    background-color: var(--color1);
+}
+tfoot {
+    background-color: var(--color1);
+}
+
+/*CONFIGURACIÓN DE DIV FLECHA*/
+
+#flecha {
+    
+    visibility: hidden;
+    position: fixed;
+    top: 39%;
+    left: 48.15%; /* Ajusta la posición horizontal de la flecha */
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 2.5vh solid transparent;
+    border-bottom: 2.5vh  solid transparent;
+    border-right: 2.5vh solid var(--color3);; /* Cambia el color y tamaño de la flecha si lo necesitas */
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+}
+
+/*CONFIGURACIÓN DE COLORES*/
+
+:root {
+    --color1: #643a13	;
+    --color2: #9b5819;
+    --color3: #5e2a23;
+    --color4:   #f5e5da
+}
+
+
