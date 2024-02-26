@@ -3,17 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tasador de mercadotecnia mágica</title>
+    <title>Tasador de mercancía mágica</title>
     <script type="module" src="script/main.js"></script>
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
+    
     <h1> Tasador automático de mercancía mágica </h1>
+    <div class="contenedor-boton"> 
+        <button class="botonpanel" id="cambiarmodo_calculorapido" value="false"> Modo de cálculo rápido: Deshabilitado </button>
+    </div>
+    
+    <!-- 
+        Estas etiquetas son necesarias para el funcionamiento del programa:
+        id="mostradorPaquetes"
+        id="mostradorProductos"
+        id="cuenta_resultado"
+    -->
 
-    <!-- Estas etiquetas son necesarias para el funcionamiento del programa-->
+    <div class="contenedor-padre">
+        <div class="contenedor-izquierdo">
+            <div id="mostradorPaquetes"> </div>
+            <div id="mostradorProductos"> </div>
+        </div>
+        <div class="contenedor-derecho" id="contenedor-derecho">
+            <div id="cuenta_resultado"></div>
+        </div>
+    </div>
 
-    <div id="mostradorPaquetes"> </div>
-    <div id="mostradorProductos"> </div>
-    <div id="cuenta_resultado"></div>
-   
+    <div id="flecha"></div>
+
+
+  
+
+
+
+
 </body>
 </html>

@@ -43,6 +43,8 @@ export const database =
 }
 
 
+// Pueden deshabilitarse los paquetes igualandolos a [].
+
 export const database_paquetes = 
 [
     {"nombre": "Pack fortalecedor",
@@ -68,3 +70,4 @@ export const database_paquetes =
 },
 
 ]
+

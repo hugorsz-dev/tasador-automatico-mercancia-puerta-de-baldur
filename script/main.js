@@ -1,7 +1,7 @@
 // Importar bases de datos
 import { database, database_paquetes } from "./database.js";
 
-
+let modorapido = document.getElementById ("cambiarmodo_calculorapido")
 /**
  * Incrustación de contenedor a partir de texto, tipo, container y atributos (opcionales) indicados
 **/
@@ -207,6 +207,7 @@ calcularTotalesPaquetes()
 
 // Actualiza la información en pantalla a medida que el usuario interactúa con ella
 function actualizarInformacion() {
+    
 
     // Eliminar toda la información presentada en pantalla
     mostradorPaquetes.innerHTML = "";
@@ -214,31 +215,40 @@ function actualizarInformacion() {
     cuenta_resultado.innerHTML = "";
 
     // MOSTRADOR PAQUETE 
-    enContenedor("paquetes", "h2", "mostradorPaquetes");
 
-    // Recorrer todos los paquetes existentes
-    database_paquetes.map(function (paquete) {
-
-        enContenedor("", "div", "mostradorPaquetes", [["id", paquete.nombre]]);
-
-        // Panel con (+) unidades (-); 
-        enContenedor("", "div", paquete.nombre, [["class", "panel_suma_resta"], ["id", "panel_suma_resta" + paquete.nombre]])
-        enContenedor("+", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumarpaquete_" + paquete.nombre]])
-        enContenedor("" + paquete.uds, "div", "panel_suma_resta" + paquete.nombre)
-        enContenedor("-", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonrestar"], ["class", "botonpanel"], ["id", "botonrestarpaquete_" + paquete.nombre]])
-
-        // Panel con la información del paquete
-
-        enContenedor(paquete.nombre, "div", paquete.nombre, [["class", "nombre-paquete"]])
-        enContenedor("Precio en oro: " + formatoNumerico(paquete.precio, " po."), "div", paquete.nombre)
-        enContenedor("Coste en oro: " + formatoNumerico(paquete.totalPO, " po."), "div", paquete.nombre)
-        enContenedor("Experiencia: " + formatoNumerico(paquete.totalExp, " ptos."), "div", paquete.nombre)
-        enContenedor("Tiempo de generación: " + formatoTiempoMins(paquete.totalMins), "div", paquete.nombre)
-        enContenedor("Contenido: ", "div", paquete.nombre)
-        paquete.objetos.map(function (objeto) {
-            enContenedor("- " + objeto.nombre + " (" + objeto.uds + ")", "div", paquete.nombre)
+    if (database_paquetes.length) {
+        enContenedor("paquetes", "h2", "mostradorPaquetes");
+        enContenedor ("", "div", "mostradorPaquetes", [["id", "muestraPaquete"], ["class", "muestraPaquete"]])
+    
+        // Recorrer todos los paquetes existentes
+        database_paquetes.map(function (paquete) {
+    
+            
+            enContenedor("", "div", "muestraPaquete", [["id", paquete.nombre], ["class", "paquete"]]);
+    
+            // Panel con (+) unidades (-); 
+            enContenedor("", "div", paquete.nombre, [["class", "panel_suma_resta"], ["id", "panel_suma_resta" + paquete.nombre]])
+            enContenedor("-5", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonrestar"], ["class", "botonpanel"], ["id", "botonrestar5paquete_" + paquete.nombre]])
+            enContenedor("-", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonrestar"], ["class", "botonpanel"], ["id", "botonrestarpaquete_" + paquete.nombre]])
+            enContenedor("" + paquete.uds, "div", "panel_suma_resta" + paquete.nombre, [["class", "uds"]])
+            enContenedor("+", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumarpaquete_" + paquete.nombre]])
+            enContenedor("+5", "button", "panel_suma_resta" + paquete.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumar5paquete_" + paquete.nombre]])
+            
+            
+            // Panel con la información del paquete
+    
+            enContenedor(paquete.nombre, "div", paquete.nombre, [["class", "nombre-paquete"]])
+            enContenedor("Precio en oro: " + formatoNumerico(paquete.precio, " po."), "div", paquete.nombre)
+            enContenedor("Coste en oro: " + formatoNumerico(paquete.totalPO, " po."), "div", paquete.nombre)
+            enContenedor("Experiencia: " + formatoNumerico(paquete.totalExp, " ptos."), "div", paquete.nombre)
+            enContenedor("Tiempo: " + formatoTiempoMins(paquete.totalMins), "div", paquete.nombre)
+            enContenedor("Contenido: ", "div", paquete.nombre)
+            paquete.objetos.map(function (objeto) {
+                enContenedor("- " + objeto.nombre + " (" + objeto.uds + ")", "div", paquete.nombre)
+            })
         })
-    })
+    }
+    
 
 
     // MOSTRADOR DE PRODUCTROS
@@ -248,25 +258,30 @@ function actualizarInformacion() {
 
         // Para cada tipo de objeto... (varita, pergamino...) un contenedor
         enContenedor(tipoObjeto, "h2", "mostradorProductos");
+        enContenedor ("", "div", "mostradorProductos", [["id", "muestraProducto"+tipoObjeto], ["class", "muestraProducto"]])
+
+   
 
         //Recorrer todos los objetos dentro de los tipos de objetos
         database[tipoObjeto].forEach(function (objeto) {
-            enContenedor("", "div", "mostradorProductos", [["id", objeto.nombre]]);
+            enContenedor("", "div", "muestraProducto"+tipoObjeto, [["id", objeto.nombre], ["class","producto"]]);
             // Dentro de cada objeto... 
 
             // Panel con (+) unidades (-); 
             enContenedor("", "div", objeto.nombre, [["class", "panel_suma_resta"], ["id", "panel_suma_resta" + objeto.nombre]])
-            enContenedor("+", "button", "panel_suma_resta" + objeto.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumar_" + objeto.nombre]])
-            enContenedor("" + objeto.uds, "div", "panel_suma_resta" + objeto.nombre)
-            enContenedor("(" + objeto.udspaquete + ")", "div", "panel_suma_resta" + objeto.nombre)
+            enContenedor("-5", "button", "panel_suma_resta" + objeto.nombre, [["class", "botonrestar"], ["class", "botonpanel"], ["id", "botonrestar5_" + objeto.nombre]])
             enContenedor("-", "button", "panel_suma_resta" + objeto.nombre, [["class", "botonrestar"], ["class", "botonpanel"], ["id", "botonrestar_" + objeto.nombre]])
+            enContenedor("" + objeto.uds, "div", "panel_suma_resta" + objeto.nombre, [["class", "uds"]])
+            enContenedor("(" + objeto.udspaquete + ")", "div", "panel_suma_resta" + objeto.nombre)  
+            enContenedor("+", "button", "panel_suma_resta" + objeto.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumar_" + objeto.nombre]])
+            enContenedor("+5", "button", "panel_suma_resta" + objeto.nombre, [["class", "botonsumar"], ["class", "botonpanel"], ["id", "botonsumar5_" + objeto.nombre]])
 
             // Panel con la información del objeto
             enContenedor(objeto.nombre, "div", objeto.nombre, [["class", "nombre_objeto"]]);
             enContenedor("Precio en oro: " + formatoNumerico(objeto.precio, " po."), "div", objeto.nombre, [["class", "atributo_objeto"]]);
             enContenedor("Coste en oro: " + formatoNumerico(objeto.po, " po."), "div", objeto.nombre, [["class", "atributo_objeto"]]);
             enContenedor("Experiencia: " + formatoNumerico(objeto.exp, " ptos."), "div", objeto.nombre, [["class", "atributo_objeto"]]);
-            enContenedor("Tiempo de generación: " + formatoTiempoMins(objeto.mins), "div", objeto.nombre, [["class", "atributo_objeto"]]);
+            enContenedor("Tiempo: " + formatoTiempoMins(objeto.mins), "div", objeto.nombre, [["class", "atributo_objeto"]]);
 
         })
     })
@@ -275,117 +290,153 @@ function actualizarInformacion() {
 
     let resultado = calcularResultado(); 
 
-    enContenedor("cuenta de resultados", "h2", "cuenta_resultado")
-
     // Indicadores totales
 
-    enContenedor("", "div", "cuenta_resultado", [["id", "indicadorestotales"]])
-    enContenedor("Indicadores totales:", "h4", "indicadorestotales");
+    if (resultado.uds>0) {
 
-    // Balance monetario
-    enContenedor("", "div", "indicadorestotales", [["id", "balancemonetario"]])
+        enContenedor("", "div", "cuenta_resultado", [["id", "indicadorestotales"]])
+        enContenedor("Indicadores totales:", "h4", "indicadorestotales");
+    
+        // Balance monetario
+        enContenedor("", "div", "indicadorestotales", [["id", "balancemonetario"]])
+    
+        crearTabla([["Balance monetario"],
+        ["Precio en oro", "Coste en oro", "Margen de beneficio"],
+        [formatoNumerico(resultado.precio, " po."), formatoNumerico(resultado.po, " po."), formatoNumerico(resultado.beneficio, " po.")]
+        ],
+            "balancemonetario", "tabla_balance_beneficios"
+        );
+    
+        // Balance tiempo experiencia
+        enContenedor("", "div", "indicadorestotales", [["id", "balancetiempoexperiencia"]])
+    
+        crearTabla([["Experiencia y tiempo"],
+        ["Coste en experiencia", "Tiempo de generación"],
+        [formatoNumerico(resultado.exp, " ptos."), formatoTiempoMins(resultado.mins)]
+        ],
+            "balancetiempoexperiencia", "tabla_balance_tiempo_experiencia"
+        );
+    
+        // Índices por unidad
+        enContenedor("", "div", "indicadorestotales", [["id", "indicesporunidad"]])
+    
+        crearTabla([["Índices unitarios"],
+        ["Unidad/es a vender", "Media de beneficio por unidad"],
+        [formatoNumerico(resultado.uds, " uds."), formatoNumerico(Math.floor(resultado.beneficio / resultado.uds), " po.")]
+        ],
+            "indicesporunidad", "tabla_unidades"
+        );
+        
+        // Tablas generales de objetos
 
-    crearTabla([["Balance monetario"],
-    ["Precio en oro", "Coste en oro", "Margen de beneficio"],
-    [formatoNumerico(resultado.precio, " po."), formatoNumerico(resultado.po, " po."), formatoNumerico(resultado.beneficio, " po.")]
-    ],
-        "balancemonetario", "tabla_balance_beneficios"
-    );
+        
+        enContenedor("", "div", "cuenta_resultado", [["id", "resumenporobjeto"]])
 
-
-    // Balance tiempo experiencia
-    enContenedor("", "div", "indicadorestotales", [["id", "balancetiempoexperiencia"]])
-
-    crearTabla([["Experiencia y tiempo"],
-    ["Coste en experiencia", "Tiempo de generación"],
-    [formatoNumerico(resultado.exp, " ptos."), formatoTiempoMins(resultado.mins)]
-    ],
-        "balancetiempoexperiencia", "tabla_balance_tiempo_experiencia"
-    );
-
-    // Índices por unidad
-    enContenedor("", "div", "indicadorestotales", [["id", "indicesporunidad"]])
-
-    crearTabla([["Índices unitarios"],
-    ["Unidad/es a vender", "Media de beneficio por unidad"],
-    [formatoNumerico(resultado.uds, " uds."), formatoNumerico(Math.floor(resultado.beneficio / resultado.uds), " po.")]
-    ],
-        "indicesporunidad", "tabla_unidades"
-    );
-
-    // Tablas generales de objetos
-    enContenedor("", "div", "cuenta_resultado", [["id", "resumenporobjeto"]])
-    enContenedor("Facturación de objetos individuales:", "h4", "resumenporobjeto");
-
-
-    resultado.resumen_individual.map(function (tipos) {
-
-        enContenedor("", "div", "resumenporobjeto", [["id", tipos.tipoObjeto]])
-
-        let tabla_resumen_por_objeto = [[tipos.tipoObjeto], ["Nombre", "Unidad/es", "Coste en experiencia", "Tiempo de generación", "Precio en oro", "Coste en oro", "Margen de beneficio"]]
-
-        // Footer, que se encontrará debajo. 
-
-        let footerObjetos = {
-            total_totalUds: 0,
-            total_totalExp: 0,
-            total_totalMins: 0,
-            total_totalPrecio: 0,
-            total_totalCoste: 0,
-            total_totalBeneficio: 0
-        };
-
-        tipos.objetos.map(function (objeto) {
-
-            footerObjetos["total_totalUds"] = parseInt(footerObjetos["total_totalUds"]) + parseInt(objeto.uds);
-            footerObjetos["total_totalExp"] = footerObjetos["total_totalExp"] + objeto.totalexp;
-            footerObjetos["total_totalMins"] = footerObjetos["total_totalMins"] + objeto.totalmins;
-            footerObjetos["total_totalPrecio"] = footerObjetos["total_totalPrecio"] + objeto.totalprecio;
-            footerObjetos["total_totalCoste"] = footerObjetos["total_totalCoste"] + objeto.totalpo;
-            footerObjetos["total_totalBeneficio"] = footerObjetos["total_totalBeneficio"] + (objeto.totalprecio - objeto.totalpo)
-
-            tabla_resumen_por_objeto.push([objeto.nombre, formatoNumerico(objeto.uds, " uds."), formatoNumerico(objeto.totalexp, " ptos."), formatoTiempoMins(objeto.totalmins), formatoNumerico(objeto.totalprecio, " po."), formatoNumerico(objeto.totalpo, " po."), formatoNumerico(objeto.totalprecio - objeto.totalpo, " po.")]);
-        })
-
-        tabla_resumen_por_objeto.push([" Total:", formatoNumerico(parseInt(footerObjetos["total_totalUds"]), " uds."), formatoNumerico(footerObjetos["total_totalExp"], " ptos."), formatoTiempoMins(footerObjetos["total_totalMins"]), formatoNumerico(footerObjetos["total_totalPrecio"], " po."), formatoNumerico(footerObjetos["total_totalCoste"], " po."), formatoNumerico(footerObjetos["total_totalBeneficio"], " po.")])
-
-        crearTabla(tabla_resumen_por_objeto, tipos.tipoObjeto, "tabla_resumen_por_objeto" + tipos.tipoObjeto)
-    })
-
-    // Tablas de objetos por paquete 
-    enContenedor("", "div", "cuenta_resultado", [["id", "resumenporpaquete"]])
-    enContenedor("Facturación de paquetes:", "h4", "resumenporpaquete");
-
-    resultado.resumen_paquete.map(function (paquete) {
-
-        let tabla_resumen_paquete = [
-            [paquete.nombre],
-            ["Unidad/es", "Media de beneficio por unidad en paquete"],
-            [formatoNumerico(paquete.unidades, " uds."), formatoNumerico(Math.floor((paquete.precio - getValorPaquete(paquete.nombre, "totalPO")) / getValorPaquete(paquete.nombre, "totalUds")), " po.")]
-        ];
-
-        crearTabla(tabla_resumen_paquete, "resumenporpaquete", "tabla_resumenporpaquete" + paquete.nombre)
-
-        let footerPaqueteObjetos = {
-            totalUds: 0,
-            totalExp: 0,
-            totalMins: 0,
-            totalPrecioVentaOriginal: 0,
-            totalCoste: 0,
+        if (hayObjetosIndividuales()) {
+            enContenedor ("Facturación por objeto individual", "h4", "resumenporobjeto")
         }
 
-        let tabla_resumen_paquete_objetos = [["Resumen de objetos en " + paquete.nombre], ["Nombre", "Unidad/es", "Coste en experencia", "Tiempo de generación", "Precio original", "Coste en oro"]]
-        paquete.objetos.map(function (objeto) {
-            footerPaqueteObjetos["totalUds"] = parseInt(footerPaqueteObjetos["totalUds"]) + parseInt(objeto.uds);
-            footerPaqueteObjetos["totalExp"] = footerPaqueteObjetos["totalExp"] + objeto.exp;
-            footerPaqueteObjetos["totalMins"] = footerPaqueteObjetos["totalMins"] + objeto.mins;
-            footerPaqueteObjetos["totalPrecioVentaOriginal"] = footerPaqueteObjetos["totalPrecioVentaOriginal"] + objeto.precio_venta_original;
-            footerPaqueteObjetos["totalCoste"] = footerPaqueteObjetos["totalCoste"] + objeto.po;
-            tabla_resumen_paquete_objetos.push([objeto.nombre, formatoNumerico(objeto.uds, " uds."), formatoNumerico(objeto.exp, " exp."), formatoTiempoMins(objeto.mins), formatoNumerico(objeto.precio_venta_original, " po."), formatoNumerico(objeto.po, " po.")]);
+        resultado.resumen_individual.map(function (tipos) {
+    
+            enContenedor("", "div", "resumenporobjeto", [["id", tipos.tipoObjeto]])
+    
+            let tabla_resumen_por_objeto = [[tipos.tipoObjeto], ["Nombre", "Unidad/es", "Coste en experiencia", "Tiempo de generación", "Precio en oro", "Coste en oro", "Margen de beneficio"]]
+            
+            // Footer, que se encontrará debajo. 
+    
+            let footerObjetos = {
+                total_totalUds: 0,
+                total_totalExp: 0,
+                total_totalMins: 0,
+                total_totalPrecio: 0,
+                total_totalCoste: 0,
+                total_totalBeneficio: 0
+            };
+
+            if (tipos.objetos.length>0) {
+                tipos.objetos.map(function (objeto) {
+                    if (objeto.uds == undefined) console.log ("B")
+                    // Introducir la información en el footer
+                    footerObjetos["total_totalUds"] = parseInt(footerObjetos["total_totalUds"]) + parseInt(objeto.uds);
+                    footerObjetos["total_totalExp"] = footerObjetos["total_totalExp"] + objeto.totalexp;
+                    footerObjetos["total_totalMins"] = footerObjetos["total_totalMins"] + objeto.totalmins;
+                    footerObjetos["total_totalPrecio"] = footerObjetos["total_totalPrecio"] + objeto.totalprecio;
+                    footerObjetos["total_totalCoste"] = footerObjetos["total_totalCoste"] + objeto.totalpo;
+                    footerObjetos["total_totalBeneficio"] = footerObjetos["total_totalBeneficio"] + (objeto.totalprecio - objeto.totalpo)
+                    
+                    tabla_resumen_por_objeto.push([objeto.nombre, formatoNumerico(objeto.uds, " uds."), formatoNumerico(objeto.totalexp, " ptos."), formatoTiempoMins(objeto.totalmins), formatoNumerico(objeto.totalprecio, " po."), formatoNumerico(objeto.totalpo, " po."), formatoNumerico(objeto.totalprecio - objeto.totalpo, " po.")]);
+                })
+        
+                tabla_resumen_por_objeto.push([" Total:", formatoNumerico(parseInt(footerObjetos["total_totalUds"]), " uds."), formatoNumerico(footerObjetos["total_totalExp"], " ptos."), formatoTiempoMins(footerObjetos["total_totalMins"]), formatoNumerico(footerObjetos["total_totalPrecio"], " po."), formatoNumerico(footerObjetos["total_totalCoste"], " po."), formatoNumerico(footerObjetos["total_totalBeneficio"], " po.")])
+        
+                crearTabla(tabla_resumen_por_objeto, tipos.tipoObjeto, "tabla_resumen_por_objeto" + tipos.tipoObjeto)
+            }
+
         })
-        tabla_resumen_paquete_objetos.push([" Total:", formatoNumerico(footerPaqueteObjetos["totalUds"], ". uds"), formatoNumerico(footerPaqueteObjetos["totalExp"], " exp."), formatoTiempoMins(footerPaqueteObjetos["totalMins"]), formatoNumerico(footerPaqueteObjetos["totalPrecioVentaOriginal"], " po."), formatoNumerico(footerPaqueteObjetos["totalCoste"], " po."), "Ahorro: " + formatoNumerico((footerPaqueteObjetos["totalPrecioVentaOriginal"] - ((paquete.precio - getValorPaquete(paquete.nombre, "totalPO")) * paquete.unidades)), " po.")])
-        crearTabla(tabla_resumen_paquete_objetos, "resumenporpaquete", "tabla_resumenporpaqueteobjetos" + paquete.nombre)
-    })
+        
+
+        
+        
+            
+    }
+    
+    // Tablas de objetos por paquete 
+   
+    if (resultado.resumen_paquete.length>0) {
+        enContenedor("", "div", "cuenta_resultado", [["id", "resumenporpaquete"]])
+        enContenedor("Facturación de paquetes:", "h4", "resumenporpaquete");
+
+        resultado.resumen_paquete.map(function (paquete) {
+
+            let tabla_resumen_paquete = [
+                [paquete.nombre],
+                ["Unidad/es", "Media de beneficio por unidad en paquete"],
+                [formatoNumerico(paquete.unidades, " uds."), formatoNumerico(Math.floor((paquete.precio - getValorPaquete(paquete.nombre, "totalPO")) / getValorPaquete(paquete.nombre, "totalUds")), " po.")]
+            ];
+
+            crearTabla(tabla_resumen_paquete, "resumenporpaquete", "tabla_resumenporpaquete" + paquete.nombre)
+
+            let footerPaqueteObjetos = {
+                totalUds: 0,
+                totalExp: 0,
+                totalMins: 0,
+                totalPrecioVentaOriginal: 0,
+                totalCoste: 0,
+            }
+
+            let tabla_resumen_paquete_objetos = [["Resumen de objetos en " + paquete.nombre], ["Nombre", "Unidad/es", "Coste en experencia", "Tiempo de generación", "Precio original", "Coste en oro"]]
+            paquete.objetos.map(function (objeto) {
+                footerPaqueteObjetos["totalUds"] = parseInt(footerPaqueteObjetos["totalUds"]) + parseInt(objeto.uds);
+                footerPaqueteObjetos["totalExp"] = footerPaqueteObjetos["totalExp"] + objeto.exp;
+                footerPaqueteObjetos["totalMins"] = footerPaqueteObjetos["totalMins"] + objeto.mins;
+                footerPaqueteObjetos["totalPrecioVentaOriginal"] = footerPaqueteObjetos["totalPrecioVentaOriginal"] + objeto.precio_venta_original;
+                footerPaqueteObjetos["totalCoste"] = footerPaqueteObjetos["totalCoste"] + objeto.po;
+                tabla_resumen_paquete_objetos.push([objeto.nombre, formatoNumerico(objeto.uds, " uds."), formatoNumerico(objeto.exp, " exp."), formatoTiempoMins(objeto.mins), formatoNumerico(objeto.precio_venta_original, " po."), formatoNumerico(objeto.po, " po.")]);
+            })
+            tabla_resumen_paquete_objetos.push([" Total:", formatoNumerico(footerPaqueteObjetos["totalUds"], ". uds"), formatoNumerico(footerPaqueteObjetos["totalExp"], " exp."), formatoTiempoMins(footerPaqueteObjetos["totalMins"]), formatoNumerico(footerPaqueteObjetos["totalPrecioVentaOriginal"], " po."), formatoNumerico(footerPaqueteObjetos["totalCoste"], " po."), "Ahorro: " + formatoNumerico((footerPaqueteObjetos["totalPrecioVentaOriginal"] - ((paquete.precio - getValorPaquete(paquete.nombre, "totalPO")) * paquete.unidades)), " po.")])
+            crearTabla(tabla_resumen_paquete_objetos, "resumenporpaquete", "tabla_resumenporpaqueteobjetos" + paquete.nombre)
+        })
+
+    }
+    
+    // Si el modo es rápido, quitar el display de todos los elementos que no queremos que se vean
+
+    if (modorapido.value=="true") {
+        var resumenPorPaquete = document.getElementById("resumenporpaquete");
+        if (resumenPorPaquete) {
+            // Si existe, cambiar su contenido a "none"
+            resumenPorPaquete.style.display = "none";
+        }
+    
+        // Verificar si existe el elemento con la ID "resumenporobjeto"
+        var resumenPorObjeto = document.getElementById("resumenporobjeto");
+        if (resumenPorObjeto) {
+            // Si existe, cambiar su contenido a "none"
+            resumenPorObjeto.style.display = "none";
+        }
+    }
+  
+    
 
     // Tras cada actualización, preparamos al navegador para recibir clicks 
 
@@ -408,11 +459,49 @@ function esperarClickBoton() {
             let tipoBoton = (botonpanel.id).split("_")[0]
             let objetoVinculado = (botonpanel.id).split("_")[1]
 
-            if (tipoBoton == "botonrestar") restarUdObjeto(objetoVinculado)
-            else anadirUdObjeto(objetoVinculado)
+            switch (tipoBoton) {
+                case "botonrestar":
+                  restarUdObjeto(objetoVinculado);
+                  break;
+                case "botonsumar":
+                  anadirUdObjeto(objetoVinculado);
+                  break;
+                case "botonrestarpaquete":
+                  restarUdPaquete(objetoVinculado);
+                  break;
+                case "botonsumarpaquete":
+                  anadirUdPaquete(objetoVinculado);
+                  break;
+                case "botonrestar5paquete":
+                  for (let i = 0; i < 5; i++) {
+                    let estado = restarUdPaquete(objetoVinculado);
+                    if (!estado) break;
+                  }
+                  break;
+                case "botonsumar5paquete":
+                  for (let i = 0; i < 5; i++) {
+                    anadirUdPaquete(objetoVinculado);
+                  }
+                  break;
+                case "botonsumar5":
+                    for (let i=0; i<5; i++) {
+                        anadirUdObjeto (objetoVinculado)
+                    }
+                    break;
+                case "botonrestar5": 
 
-            if (tipoBoton == "botonrestarpaquete") restarUdPaquete(objetoVinculado)
-            else anadirUdPaquete(objetoVinculado)
+                    for (let i = 0; i < 5; i++) {
+                        let estado = restarUdObjeto(objetoVinculado);
+                        if (!estado) break;
+                    }
+                    break;    
+        
+                default:
+                  break;
+            }
+              
+
+            
         })
     })
 }
@@ -467,8 +556,11 @@ function anadirUdObjeto(nombreObjeto) {
 
 function restarUdObjeto(nombreObjeto) {
     let uds = parseInt(getValorObjeto(nombreObjeto, "uds"));
-    if (uds <= 0) alert("Error (Modificar esto)")
-    else setValorObjeto(nombreObjeto, "uds", (uds - 1).toString())
+    if (uds <= 0) return false;
+    else {
+        setValorObjeto(nombreObjeto, "uds", (uds - 1).toString())
+        return true;
+    }
 }
 
 // GESTIÓN DE PAQUETES
@@ -517,7 +609,10 @@ function anadirUdPaquete(nombrePaquete) {
 
 function restarUdPaquete(nombrePaquete) {
     let uds = parseInt(getValorPaquete(nombrePaquete, "uds"));
-    if (uds <= 0) alert("Error (Modificar esto)")
+    if (uds <= 0) {
+        console.log("Error (Modificar esto)") 
+        return false;
+    }
     else {
         setValorPaquete(nombrePaquete, "uds", (uds - 1).toString())
         // Modificar las unidades de paquete de los objetos comprometidos
@@ -530,9 +625,11 @@ function restarUdPaquete(nombrePaquete) {
                 }
             })
         })
-
+        return true;
     }
 }
+
+
 
 // Retorna el valor de uno de los objetos contenidos en un paquete
 
@@ -654,8 +751,62 @@ function calcularResultado() {
     return resultado;
 }
 
+function hayObjetosIndividuales () {
+    let salida = false;
+    calcularResultado().resumen_individual.map(function (tipos) {
+        
+        if (tipos.objetos.length>0) { // Verifica si hay objetos y si no se ha ejecutado
+            
+            salida = true; 
+        }
+    })   
+
+    return salida;
+}
+
 /**
  * Main 
 **/
 
 actualizarInformacion();
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Enter') {
+        
+        let flecha = document.getElementById ("flecha"); 
+        let contenedor_derecho = document.getElementById ("contenedor-derecho"); 
+
+        let cuenta_resultado = document.getElementById ("cuenta_resultado")
+        function invertirEstado () {
+            if (modorapido.value=="true") {
+                modorapido.value ="false" 
+                modorapido.innerHTML ="Modo de cálculo rápido: Deshabilitado"
+                modorapido.style.backgroundColor =   "#f5e5da"
+                modorapido.style.color = "#5e2a23";
+                
+                cuenta_resultado.style.position="relative"
+                flecha.style.visibility = "hidden"
+                
+
+
+            } 
+            else if (modorapido.value=="false")  {
+                
+                modorapido.value ="true" 
+                modorapido.innerHTML ="Modo de cálculo rápido: Habilitado"
+                modorapido.style.backgroundColor = "#5e2a23"; 
+                modorapido.style.color = "#f5e5da"
+                cuenta_resultado.style.position="fixed"
+                flecha.style.visibility = "visible"
+                
+            } 
+            actualizarInformacion()
+
+        }
+        invertirEstado ()
+    }
+});
+
+
+
+
