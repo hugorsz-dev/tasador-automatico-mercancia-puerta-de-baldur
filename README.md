@@ -1,7 +1,6 @@
 # Tasador automático de mercancía para el videojuego de rol "Puerta de Baldur" 
 
 > [!WARNING]
-> ¡Código en español!
 > Suele considerarse una mala praxis utilizar variables en español. Tratándose este de un proyecto de incierto recorrido, empecé a realizarlo **en español**, decisión de la que me arrepiento, pero que debido a mi falta de tiempo no puedo subsanar. 
 
 
