@@ -1,7 +1,7 @@
 # Tasador automático de mercancía para el videojuego de rol "Puerta de Baldur" 
 
 > [!WARNING]
-> Suele considerarse una mala praxis utilizar variables en español. Tratándose este de un proyecto de incierto recorrido, empecé a realizarlo **en español**, decisión de la que me arrepiento, pero que debido a mi falta de tiempo no puedo subsanar. 
+> **¡Variables en español!** ~ Tratándose este de un proyecto de incierto recorrido, empecé a realizarlo **en español**, una mala praxis de la que me arrepiento, pero que debido a mi falta de tiempo no puedo subsanar.  
 
 
 Consiste en un sistema de gestión de inventarios, que emplea dos archivos JSON relacionados entre sí, a modo de bases de datos modificables desde ***database.js***. 
