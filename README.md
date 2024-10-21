@@ -1,5 +1,9 @@
 # Tasador automático de mercancía para el videojuego de rol "Puerta de Baldur" 
 
+> [!warning] ¡Código en español!
+> Suele considerarse una mala praxis utilizar variables en español. Tratándose este de un proyecto de incierto recorrido, empecé a realizarlo **en español**, decisión de la que me arrepiento, pero que debido a mi falta de tiempo no puedo subsanar. 
+
+
 Consiste en un sistema de gestión de inventarios, que emplea dos archivos JSON relacionados entre sí, a modo de bases de datos modificables desde ***database.js***. 
 
 El fichero principal, **database**, está compuesto de diversos objetos mágicos, y el fichero de **database_paquetes**, es capaz de agruparlos entre sí, siendo dependiente del anterior para funcionar, conservando cada objeto dentro de su paquete las propiedades previamente definidas
